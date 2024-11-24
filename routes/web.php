@@ -49,10 +49,10 @@ Route::resource('transfert',TransfertController::class);
 Route::resource('factur',FactureController::class);
 Route::resource('facturee',FactureeController::class);
 Route::middleware(['auth', 'admin'])->group(function(){
-    Route::get('/user/{user}/edit', 'Auth\RegisterController@edit')->name('user.edit');
-    Route::patch('/user/{user}', 'Auth\RegisterController@update')->name('user.update');
-    Route::get('/user', 'Auth\RegisterController@index')->name('user.index');
-    Route::delete('/user/{user}', 'Auth\RegisterController@delete')->name('user.destroy');
+    Route::get('/user/{user}/edit', 'App\Http\Controllers\Auth\RegisterController@edit')->name('user.edit');
+    Route::patch('/user/{user}', 'App\Http\Controllers\Auth\RegisterController@update')->name('user.update');
+    Route::get('/user', 'App\Http\Controllers\Auth\RegisterController@index')->name('user.index');
+    Route::delete('/user/{user}', 'App\Http\Controllers\Auth\RegisterController@delete')->name('user.destroy');
 });
 Route::resource('categorie',CategorieController::class);
 
