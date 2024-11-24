@@ -427,6 +427,48 @@
                 'pdfHtml5'
             ]
         });
+        
+        $('#exemple1').DataTable({
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+            },
+           "paging": true,
+            "lengthChange": true,
+            "searching": true,
+           // "ordering": true,
+           "info": false,
+            "autoWidth": false,
+            "scrollX": true,
+           order: [[1, 'desc']],
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+        
+        $('.exemple2').DataTable({
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+            },
+           "paging": true,
+            "lengthChange": true,
+            "searching": true,
+           // "ordering": true,
+           "info": false,
+            "autoWidth": false,
+            "scrollX": true,
+           order: [[1, 'desc']],
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
     });
 </script>
 
