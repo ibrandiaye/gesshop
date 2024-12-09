@@ -42,7 +42,7 @@ class FactureController extends Controller
         if(Auth::user()->role=="gestionnaire"){
             $factures = $this->factureRepository->getFactureByDepot(Auth::user()->depot_id);
         }else{
-            $factures = $this->factureRepository->getAll();
+            $factures = $this->factureRepository->getAllFacture();
         }
         return view('facture.index',compact('factures'));
     }
@@ -85,9 +85,9 @@ class FactureController extends Controller
 
         return redirect()->route('facture.fac');
     }
-    public function updateSortie(Request $request){
-        $this->supprimerFacture($request->facture_id);
-
+   public function updateSortie(Request $request){
+       
+try{
 
         //dd(Auth::user()->depot_id);
 
@@ -101,7 +101,7 @@ class FactureController extends Controller
         $prixs = $request['prix'];
          //control if table quantite contains value null
          for($x = 0; $x < $arrlength; $x++) {
-            var_dump(is_double($quantites[$x]));
+           // var_dump(is_double($quantites[$x]));
             if(is_numeric($quantites[$x])==false && is_double($quantites[$x])==false){
 
                 return redirect()->back()->with('error','la quantité doit etre un nombre')->withInput();
@@ -112,6 +112,8 @@ class FactureController extends Controller
 
         }
        // die($request['depot_id']);
+       $this->supprimerFacture($request->facture_id);
+     
         for($x = 0; $x < $arrlength; $x++) {
             $depotProduit = $this->depotProduitRepository->getByProduitAndDepot($produits[$x],$request['depot_id']);
             if($depotProduit->stock < $quantites[$x])
@@ -122,7 +124,17 @@ class FactureController extends Controller
             }
 
     }
-    $facture =  $this->factureRepository->store($request->only(['depot_id','chauffeur_id','client_id','facs']));
+
+    $restant = $request->total - $request->recu;
+   
+    if($restant < 0)
+    {
+        $restant = 0;
+    }
+    $request->merge(["restant"=>$restant]);
+   
+
+    $facture =  $this->factureRepository->store($request->only(['depot_id','client_id','facs','total','recu','restant']));
     for($x = 0; $x < $arrlength; $x++) {
         $sortie = new Sortie();
         $sortie->produit_id = $produits[$x];
@@ -135,10 +147,72 @@ class FactureController extends Controller
         DepotProduit::find($depotProduit->id)->update(['stock' =>  $depotProduit->stock]);
 
     }
+   // dd($facture->id);
 
+    return redirect('facture/'.$facture->id);//->route('facture.show',['facture_id'=>$facture->id]);
+     } catch (\Exception $e) {
+        dd( $e->getMessage());
+        return redirect()->back()->with('error', 'Une erreur est survenue : ' . $e->getMessage())->withInput();
+    }
 
-    return redirect()->route('facture.show',['facture_id'=>$facture->id]);
 }
+
+/*public function updateSortie(Request $request) {
+    if (Auth::user()->role == "gestionnaire") {
+        $request['depot_id'] = Auth::user()->depot_id;
+    }
+
+    $produits = $request['produit_id'];
+    $quantites = $request['quantite'];
+    $prixs = $request['prix'];
+    $arrlength = count($produits);
+
+    // Contrôle des quantités
+    for ($x = 0; $x < $arrlength; $x++) {
+        if (!is_numeric($quantites[$x])) {
+            return redirect()->back()->with('error', 'La quantité doit être un nombre')->withInput();
+        }
+    }
+
+    $this->supprimerFacture($request->facture_id);
+
+    for ($x = 0; $x < $arrlength; $x++) {
+        $depotProduit = $this->depotProduitRepository->getByProduitAndDepot($produits[$x], $request['depot_id']);
+        if (!$depotProduit) {
+            return redirect()->back()->with('error', 'Produit introuvable dans le dépôt sélectionné.');
+        }
+        if ($depotProduit->stock < $quantites[$x]) {
+            $depot = $this->depotRepository->getById($request['depot_id']);
+            $produit = $this->produitRepository->getById($produits[$x]);
+            return redirect()->back()->with('error', 'Stock insuffisant pour le produit ' . $produit->nomp . ' dans le dépôt ' . $depot->nomd);
+        }
+    }
+
+    $restant = max(0, ($request->total ?? 0) - ($request->recu ?? 0));
+    $request->merge(["restant" => $restant]);
+
+    try {
+        $facture = $this->factureRepository->store($request->only(['depot_id', 'client_id', 'facs', 'total', 'recu', 'restant']));
+
+        for ($x = 0; $x < $arrlength; $x++) {
+            $sortie = new Sortie();
+            $sortie->produit_id = $produits[$x];
+            $sortie->quantite = $quantites[$x];
+            $sortie->prixv = $prixs[$x];
+            $sortie->facture_id = $facture->id;
+            $sortie->save();
+
+            $depotProduit = $this->depotProduitRepository->getByProduitAndDepot($produits[$x], $request['depot_id']);
+            $depotProduit->stock -= $quantites[$x];
+            $depotProduit->save();
+        }
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Une erreur est survenue : ' . $e->getMessage())->withInput();
+    }
+
+    return redirect('facture/' . $facture->id);
+}*/
+
 
     public function supprimerFacture($id){
         $sorties = $this->sortieRepository->getByFacture($id);

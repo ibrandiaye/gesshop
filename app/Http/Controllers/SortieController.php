@@ -104,7 +104,13 @@ class SortieController extends Controller
                 return redirect()->back()->with('error','stock de '.$produit->nomp.'   insuffisant  dans le dépot de '.$depot->nomd);
             }
         }
-       $facture =  $this->factureRepository->store($request->only(['depot_id','chauffeur_id','client_id','facs']));
+        $restant = $request->total - $request->recu;
+        if($restant < 0)
+        {
+            $restant = 0;
+        }
+        $request->merge(["restant"=>$restant]);
+       $facture =  $this->factureRepository->store($request->only(['depot_id','chauffeur_id','client_id','facs','total','recu','restant']));
         for($x = 0; $x < $arrlength; $x++) {
             $sortie = new Sortie();
             $sortie->produit_id = $produits[$x];

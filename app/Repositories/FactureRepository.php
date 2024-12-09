@@ -29,4 +29,12 @@ class FactureRepository extends RessourceRepository{
                 ->where("client_id", $client_id)
                 ->get();
     }
+    public function getAllFacture($client_id)
+    {
+            return DB::table('factures')
+            ->leftJoin("clients","factures.client_id","=","clients.id")
+            ->select("factures.*","clients.nomc")
+            ->orderBy("id", "desc")
+            ->get();
+    }
 }

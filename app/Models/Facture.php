@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Facture extends Model
 {
- protected $fillable =['depot_id','client_id'];
+ protected $fillable =['depot_id','client_id','total','recu','restant'];
 
  public function depot(){
     return $this->belongsTo(Depot::class);

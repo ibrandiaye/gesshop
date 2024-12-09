@@ -17,6 +17,7 @@ class CreateFacturesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('depot_id');
             $table->unsignedBigInteger('client_id');
+            
             $table->foreign('depot_id')
             ->references('id')
             ->on('depots');

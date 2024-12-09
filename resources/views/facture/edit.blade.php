@@ -77,7 +77,7 @@
                                         <select class="form-control select2" id="client_id" name="client_id" s>
                                             <option value="">Selectionnez</option>
                                             @foreach ($clients as $client)
-                                            <option value="{{$client->id}}"  {{$facture->client_id==$client->id ? 'selected' : ''}}>{{$client->nomc}} {{ $client->telc }}</option>
+                                            <option value="{{$client->id}}"  {{$facture->client_id==$client->id ? 'selected' : ''}}>{{$client->nomc}} {{ $client->telc }}></option>
                                                 @endforeach
 
                                         </select>
@@ -144,6 +144,11 @@
 
                                             </tbody>
                                         </table>
+                                        <div>
+                                            Total: <input type="text" name="total" id="total" readonly value="{{$facture->total}}" class="form-control">
+                                            Montant Reçu: <input type="number" name="recu" id="total"  value="{{$facture->recu}}" class="form-control" required >
+
+                                        </div>
                                         <center>
                                             <button type="submit" id="btnenreg" class="btn  btn-success btn btn-lg "> ENREGISTRER</button>
                                         </center>
@@ -206,12 +211,41 @@
     });
 $(document).ready(function(){
     //alert('keuup');
-    $(".calcul").keyup(function(){
+ /*   $(".calcul").keyup(function(){
         console.log('keuup');
        var prixu = $("#prixv").val();
        var quantite = $("#quantite").val();
        console.log(prixu * quantite);
-      });
+      });*/
+
+      function calculerTotal() {
+        let total = 0;
+        
+
+        // Parcourir chaque ligne du tableau
+        $('.conteneur tr').each(function () {
+            const quantite = parseFloat($(this).find('.quant').val()) || 0;
+            const prix = parseFloat($(this).find('.prix').val()) || 0;
+
+            total += quantite * prix;
+        });
+
+        // Mettre à jour l'input readonly avec le total
+        $('#total').val(total.toFixed(0));
+    }
+
+    // Écouter les changements sur les inputs quantité et prix
+    $('.conteneur').on('input', '.quant, .prix', calculerTotal);
+
+    // Supprimer une ligne
+    $('.conteneur').on('click', '.remove-tr', function () {
+        $(this).closest('tr').remove();
+        calculerTotal(); // Recalcul du total après suppression
+    });
+
+    // Calcul initial
+    calculerTotal();
+
 });
 
     $("#depot_id").change(function () {
