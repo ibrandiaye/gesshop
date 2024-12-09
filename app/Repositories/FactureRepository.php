@@ -44,4 +44,13 @@ class FactureRepository extends RessourceRepository{
             ->orderBy("id", "desc")
             ->get();
     }
+    public function getCreance()
+    {
+            return DB::table('factures')
+            ->leftJoin("clients","factures.client_id","=","clients.id")
+            ->select("factures.*","clients.nomc")
+            ->where('factures.restant','>', 0)
+            ->orderBy("id", "desc")
+            ->get();
+    }
 }

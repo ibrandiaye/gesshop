@@ -86,7 +86,7 @@ class FactureController extends Controller
         return redirect()->route('facture.fac');
     }
    public function updateSortie(Request $request){
-       
+
 try{
 
         //dd(Auth::user()->depot_id);
@@ -113,7 +113,7 @@ try{
         }
        // die($request['depot_id']);
        $this->supprimerFacture($request->facture_id);
-     
+
         for($x = 0; $x < $arrlength; $x++) {
             $depotProduit = $this->depotProduitRepository->getByProduitAndDepot($produits[$x],$request['depot_id']);
             if($depotProduit->stock < $quantites[$x])
@@ -126,13 +126,13 @@ try{
     }
 
     $restant = $request->total - $request->recu;
-   
+
     if($restant < 0)
     {
         $restant = 0;
     }
     $request->merge(["restant"=>$restant]);
-   
+
 
     $facture =  $this->factureRepository->store($request->only(['depot_id','client_id','facs','total','recu','restant']));
     for($x = 0; $x < $arrlength; $x++) {
@@ -248,5 +248,19 @@ try{
         $depots = $this->depotRepository->getAll();
         $depotProduits = $this->depotProduitRepository->getByProduitAndDepotByDeport($facture->depot_id);
         return view('facture.edit',compact('facture','id','produits','clients','depots','depotProduits'));
+    }
+
+    public function completer(Request $request)
+    {
+        $recu = $request->recu + $request->complement;
+        $restant = $request->total - $recu;
+        if($restant<0)
+        {
+                $restant = 0;
+        }
+
+        DB::table("factures")->where("id",$request->id)->update(["restant"=>$restant,"recu"=>$recu]);
+        DB::table("complements")->insert(["montant"=>$request->complement,"facture_id"=>$request->id,'created_at'=>today()]);
+        return redirect()->back()->with('success','Operation avec succée');
     }
 }

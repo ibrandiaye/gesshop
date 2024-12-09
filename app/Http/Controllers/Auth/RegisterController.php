@@ -44,7 +44,7 @@ class RegisterController extends Controller
      */
     public function __construct(UserRepository $userRepository)
     {
-       // $this->middleware('guest');
+       $this->middleware('auth');
         $this->userRepository =$userRepository;
     }
 

@@ -81,3 +81,5 @@ Route::post('/entree/sortie/between/date', 'App\Http\Controllers\DepotController
 Route::get('/modifier/facture/{id}', 'App\Http\Controllers\FactureController@update')->name('modifier.facture');
 
 Route::post('/update/facture', 'App\Http\Controllers\FactureController@updateSortie')->name('facture.edit');
+
+Route::post('/completer', 'App\Http\Controllers\FactureController@completer')->name('completer');

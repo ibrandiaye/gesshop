@@ -38,9 +38,9 @@
             <div class="row">
                 <div class="col-12">
                   <h4>
-                    <img class="img float-right" src="{{ asset('assets/img/logo.png') }}" style="width: 20%;">
-                   
-                    <img class="float-center">
+                 {{--    <img class="img float-right" src="{{ asset('assets/img/logo.png') }}" style="width: 20%;"> --}}
+
+
                   </h4>
                 </div>
                 <!-- /.col -->
@@ -49,21 +49,21 @@
               <div class="row invoice-info">
 
                 <div class="col-sm-4 invoice-col">
-                  <b>Date:  <address>{{  Carbon\Carbon::parse( $facture->created_at)->format('d-m-Y H:i') }}</b><br>
+                  <b> <address> Date:  {{  Carbon\Carbon::parse( $facture->created_at)->format('d-m-Y H:i') }}</b><br>
                     <br>
-                  Client
+
                   <address>
-                  <strong>@if( $facture->client)
-                    {{ $facture->client->nomc }} @endif </strong>
+                  <strong>@if ( $facture->client)
+                    Client : {{ $facture->client->nomc }} @endif </strong>
                   </address>
-                  INfOLINE
+
                   <address>
-                  <strong> 77 199 88 85 </strong>
+                  <strong> INfOLINE : 77 199 88 85 </strong>
                   </address>
                 </div>
                 <!-- /.col -->
-                
-             
+
+
                 <!-- /.col -->
               </div>
               <!-- /.row -->
@@ -71,7 +71,7 @@
 
             <!-- Table row -->
             @php
-               $total = 0 ; 
+               $total = 0 ;
             @endphp
             <div class="row">
               <div class="col-12 table-responsive">
@@ -94,9 +94,9 @@
                     <td>{{ $sortie->quantite *  $sortie->prixv }} FCFA
                     </td>
                   </tr>
-                  @php
-                  $total = $total + ( $sortie->quantite *  $sortie->prixv)  ; 
-               @endphp
+                 {{--  @php
+                  $total = $total + ( $sortie->quantite *  $sortie->prixv)  ;
+               @endphp --}}
                   @endforeach
 
                   </tbody>
@@ -105,7 +105,9 @@
               <!-- /.col -->
             </div>
             <!-- /.row -->
-            <strong>Total : {{$total}}</strong>
+            <strong>Total : {{$facture->total}} CFA</strong><br>
+            <strong>Reçu : {{$facture->recu}} CFA</strong><br>
+            <strong>Restant : {{$facture->restant}} CFA</strong><br>
             <div class="row">
               <!-- accepted payments column -->
               <div class="col-6">
@@ -116,15 +118,12 @@
             <!-- /.row -->
 
             <!-- this row will not appear when printing -->
-            <div class="row no-print">
-              <div class="col-12">
-                <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-              </div>
-            </div>
+
           </div>
           <!-- /.invoice -->
         </div><!-- /.col -->
       </div><!-- /.row -->
+      <br><br>
   </section>
   <!-- /.content -->
 </div>

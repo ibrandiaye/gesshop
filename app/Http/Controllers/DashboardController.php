@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\DepotProduitRepository;
 use App\Repositories\DepotRepository;
 use App\Repositories\EntreeRepository;
+use App\Repositories\FactureRepository;
 use App\Repositories\ProduitRepository;
 use App\Repositories\SortieRepository;
 use App\Repositories\TransfertRepository;
@@ -20,9 +21,10 @@ class DashboardController extends Controller
     protected $entreeRepository;
     protected $sortieRepository;
     protected $transfertRepository;
+    protected $factureRepository;
     public function __construct(ProduitRepository $produitRepository,
     DepotRepository $depotRepository,DepotProduitRepository $depotProduitRepository,EntreeRepository $entreeRepository,
-    SortieRepository $sortieRepository, TransfertRepository $transfertRepository)
+    SortieRepository $sortieRepository, TransfertRepository $transfertRepository,FactureRepository $factureRepository)
     {
         $this->middleware('auth');
         $this->produitRepository = $produitRepository;
@@ -31,6 +33,7 @@ class DashboardController extends Controller
         $this->entreeRepository = $entreeRepository;
         $this->sortieRepository = $sortieRepository;
         $this->transfertRepository = $transfertRepository;
+        $this->factureRepository  = $factureRepository;
     }
 
     public function  listProduit(){
@@ -58,6 +61,7 @@ class DashboardController extends Controller
         $depots = $this->depotRepository->getDepotWithRelation();
         $stocks = $this->depotRepository->getStockByDepots();
         $produits = $this->produitRepository->getAll();
+        $factures = $this->factureRepository->getCreance();
        // $nbTransfert = $this->transfertRepository->tansfertForMyDepotNoValidate(Auth::user()->depot_id);
         //dd($stocks);
         $total =0;
@@ -75,7 +79,7 @@ class DashboardController extends Controller
             $totalb = $totalb + $diff;
         }
         $produitsOutOfStock = $this->depotProduitRepository->getDepotProduitOutOfStcok();
-        return view('welcome',compact('depots','stocks','produits','total','totalv','totalb','produitsOutOfStock'));
+        return view('welcome',compact('depots','stocks','produits','total','totalv','totalb','produitsOutOfStock','factures'));
     }
     public function getProduitDepotById($produit_id){
         $depotProduits = $this->depotProduitRepository->getDepotProduitByProduit($produit_id);

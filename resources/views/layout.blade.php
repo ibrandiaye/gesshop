@@ -266,7 +266,7 @@
                             <i class='fas fa-arrow-left'></i>
 
                             <p>
-                                Sortie Stock
+                                Vente
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
@@ -427,7 +427,7 @@
                 'pdfHtml5'
             ]
         });
-        
+
         $('#exemple1').DataTable({
             "language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
@@ -448,7 +448,7 @@
                 'pdfHtml5'
             ]
         });
-        
+
         $('.exemple2').DataTable({
             "language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
