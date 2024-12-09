@@ -12,9 +12,16 @@ class FactureRepository extends RessourceRepository{
     }
 
     public function getFactureByDepot($depot_id){
-        return Facture::with(['client','depot'])
+        /*return Facture::with(['client','depot'])
         ->where('depot_id',$depot_id)
         ->orderBy('id','desc')
+        ->get();*/
+
+        return DB::table('factures')
+        ->leftJoin("clients","factures.client_id","=","clients.id")
+        ->select("factures.*","clients.nomc")
+        ->where('factures.depot_id',$depot_id)
+        ->orderBy("id", "desc")
         ->get();
     }
     public function getFactureBetweenToDate($debut,$fin,$depot_id){
@@ -29,7 +36,7 @@ class FactureRepository extends RessourceRepository{
                 ->where("client_id", $client_id)
                 ->get();
     }
-    public function getAllFacture($client_id)
+    public function getAllFacture()
     {
             return DB::table('factures')
             ->leftJoin("clients","factures.client_id","=","clients.id")

@@ -18,12 +18,6 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<style>
-
-  th,td {
-    border: solid 1px;
-  }
-</style>
 <body>
 <div class="wrapper">
   <!-- Main content -->
@@ -49,54 +43,54 @@
               <div class="row invoice-info">
 
                 <div class="col-sm-4 invoice-col">
-                  <b>Date:  <address>{{  Carbon\Carbon::parse( $facture->created_at)->format('d-m-Y H:i') }}</b><br>
-                    <br>
                   Client
                   <address>
                   <strong>@if( $facture->client)
                     {{ $facture->client->nomc }} @endif </strong>
                   </address>
-                  INfOLINE
-                  <address>
-                  <strong> 77 199 88 85 </strong>
-                  </address>
                 </div>
                 <!-- /.col -->
-                
-             
+                <div class="col-sm-4 invoice-col">
+                  <b>Date:  <address>{{  Carbon\Carbon::parse( $facture->created_at)->format('d-m-Y H:i') }}</b><br>
+                  </address>
+                      {{--      <br>
+                  <b>Numéro de commande:</b> N°{{ $facture->id }}<br>
+                  <b>Date Facture:</b> {{  Carbon\Carbon::parse( $facture->created_at)->format('d-m-Y H:i') }}<br>
+                  <b>Compte:</b> @if( $facture->client){{ $facture->client->telc }}  @endif  --}}
+                </div>
+                <div class="col-sm-4 invoice-col">
+                  INfOLINE
+                  <address>
+                  <strong> 77 274 91 91 </strong>
+                  </address>
+                </div>
                 <!-- /.col -->
               </div>
               <!-- /.row -->
             <!-- /.row -->
 
             <!-- Table row -->
-            @php
-               $total = 0 ; 
-            @endphp
             <div class="row">
               <div class="col-12 table-responsive">
-                <table class="">
+                <table class="table table-striped">
                   <thead>
 
                   <tr>
                     <th>Article</th>
-                    <th>  Qtite </th>
+                    <th>Quantite </th>
                     <th>Prix Unitaire</th>
                     <th>Prix Total</th>
                   </tr>
                   </thead>
                   <tbody>
                     @foreach ($facture->sorties as $sortie)
-                  <tr >
-                    <td style="border: solid 1px;">{{ $sortie->produit->nomp }}</td>
+                  <tr>
+                    <td><a href="{{ route('get.chercher.produit', ['id'=>$sortie->produit->id]) }}">{{ $sortie->produit->nomp }}</a></td>
                         <td>{{ $sortie->quantite }} </td>
                         <td>{{ $sortie->prixv }}</td>
                     <td>{{ $sortie->quantite *  $sortie->prixv }} FCFA
                     </td>
                   </tr>
-                  @php
-                  $total = $total + ( $sortie->quantite *  $sortie->prixv)  ; 
-               @endphp
                   @endforeach
 
                   </tbody>
@@ -105,7 +99,7 @@
               <!-- /.col -->
             </div>
             <!-- /.row -->
-            <strong>Total : {{$total}}</strong>
+
             <div class="row">
               <!-- accepted payments column -->
               <div class="col-6">

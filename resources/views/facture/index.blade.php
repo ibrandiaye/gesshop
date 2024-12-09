@@ -49,9 +49,9 @@
                             <tr>
                                 
                                 <td>{{  Carbon\Carbon::parse( $facture->created_at)->format('d-m-Y H:i') }}</td>
-                                <td>@if( $facture->client)
-                                    {{ $facture->client->nomc }}
-                                @endif</td>
+                                <td>
+                                    {{ $facture->nomc }}
+                                </td>
                                 <td>{{--  <a href="{{ route('get.by.facture', ['facture_id'=>$facture->id]) }}" class="btn btn-warning">Retour</a>  --}}
                                     <a href="{{ route('facture.show', ['facture_id'=>$facture->id]) }}" class="btn btn-info"><i class="far fa-eye"></i></a>
                                      <a href="{{ route('modifier.facture',$facture->id) }}" role="button" class="btn btn-warning"><i class="fas fa-edit"></i></a>  
