@@ -205,6 +205,7 @@
 @section('script')
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
+            url_app = '{{ config('app.url') }}';
     $(function () {
         //Initialize Select2 Elements
         $('.select2').select2()
@@ -251,7 +252,7 @@ $(document).ready(function(){
     $("#depot_id").change(function () {
         var id = $("#depot_id").val();
 
-        var userURL = "/api/json/entree/"+id;
+        var userURL = url_app +"/api/json/entree/"+id;
         var content = '';
 
         $.ajax({
@@ -314,6 +315,7 @@ $(document).ready(function(){
 </script>
 
 <script>
+
     $(document).ready(function () {
      //   $("#btnenreg").prop("disabled","true");
         $(".addRow").click(function() {
