@@ -86,7 +86,7 @@
 
                   <tr>
                     <th>Article</th>
-                    <th>  Qtite </th>
+                    <th>  Qte </th>
                     <th>Prix Unitaire</th>
                     <th>Prix Total</th>
                   </tr>
@@ -95,8 +95,8 @@
                     @foreach ($facture->sorties as $sortie)
                   <tr >
                     <td style="text-align: center;font-weight: bold;"><strong>{{ $sortie->produit->nomp }}</strong></td>
-                        <td><strong>{{ $sortie->quantite }} cfa</strong></td>
-                        <td>{{ $sortie->prixv }}</td>
+                        <td><strong>{{ $sortie->quantite }}</strong></td>
+                        <td>{{ $sortie->prixv }}  cfa</td>
                     <td>{{ $sortie->quantite *  $sortie->prixv }} cfa
                     </td>
                   </tr>
