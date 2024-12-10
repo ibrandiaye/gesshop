@@ -88,7 +88,7 @@
                             </div>
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <table class="table table2 table-bordered" id="ta">
+                                        <table class="table tables table-bordered" id="ta">
                                             <thead>
 
                                             <tr>

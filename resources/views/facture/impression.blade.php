@@ -88,8 +88,8 @@
                   <tbody>
                     @foreach ($facture->sorties as $sortie)
                   <tr >
-                    <td style="border: solid 1px;">{{ $sortie->produit->nomp }}</td>
-                        <td>{{ $sortie->quantite }} </td>
+                    <td style="border: solid 1px;"><strong>{{ $sortie->produit->nomp }}nbsp;</strong></td>
+                        <td><strong>{{ $sortie->quantite }} </strong></td>
                         <td>{{ $sortie->prixv }}</td>
                     <td>{{ $sortie->quantite *  $sortie->prixv }} FCFA
                     </td>
