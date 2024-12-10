@@ -59,9 +59,9 @@ Route::resource('categorie',CategorieController::class);
 Auth::routes();
 Route::post('/stock/produit','App\Http\Controllers\DashboardController@getProduitDepotByIdBetweenToDate')->name('detail.produit.between.to.date');
 
-Route::post('/json/chauffeur', 'ChauffeurController@storeJson')->name('json.chauffeur.store');
+Route::post('/json/chauffeur', 'App\Http\Controllers\ChauffeurController@storeJson')->name('json.chauffeur.store');
 Route::post('/json/fournisseur', 'App\Http\Controllers\FournisseurController@storeJson')->name('json.fournisseur.store');
-Route::post('/json/client', 'ClientController@storeJson')->name('json.client.store');
+Route::post('/json/client', 'App\Http\Controllers\ClientController@storeJson')->name('json.client.store');
 
 Route::post('/chercher/produit', 'App\Http\Controllers\DashboardController@chercherProduit')->name('chercher.produit');
 Route::post('/chercher/sortie/date', 'App\Http\Controllers\SortieController@getByDateAndClient')->name('date.client.sortie');

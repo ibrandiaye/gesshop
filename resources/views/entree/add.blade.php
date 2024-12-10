@@ -81,7 +81,8 @@
                             </div>
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <table class="table table2 table-bordered" id="ta">
+                                        <input type="text" id="searchInput" placeholder="Rechercher..." style=" width: 100%;" class="form-control"><br>
+                                        <table id="myTable" class="table  table-bordered" >
                                             <thead>
 
                                             <tr>

@@ -470,6 +470,15 @@
             ]
         });
     });
+
+    $(document).ready(function () {
+    $('#searchInput').on('keyup', function () {
+        var value = $(this).val().toLowerCase(); // Récupère la valeur saisie et la met en minuscule
+        $('#myTable tbody tr').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1); // Affiche ou masque les lignes
+        });
+    });
+});
 </script>
 
 <script type="text/javascript">

@@ -22,7 +22,13 @@
 
   th,td {
     border: solid 1px;
+    text-align: center;
+    font-weight: bold;
   }
+  table {
+                width: 80mm; /* Largeur pour l'impression */
+                border-collapse: collapse;
+            }
 </style>
 <body>
 <div class="wrapper">
@@ -88,10 +94,10 @@
                   <tbody>
                     @foreach ($facture->sorties as $sortie)
                   <tr >
-                    <td style="border: solid 1px;"><strong>{{ $sortie->produit->nomp }}nbsp;</strong></td>
-                        <td><strong>{{ $sortie->quantite }} </strong></td>
+                    <td style="text-align: center;font-weight: bold;"><strong>{{ $sortie->produit->nomp }}</strong></td>
+                        <td><strong>{{ $sortie->quantite }} cfa</strong></td>
                         <td>{{ $sortie->prixv }}</td>
-                    <td>{{ $sortie->quantite *  $sortie->prixv }} FCFA
+                    <td>{{ $sortie->quantite *  $sortie->prixv }} cfa
                     </td>
                   </tr>
                  {{--  @php
