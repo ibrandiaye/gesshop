@@ -28,11 +28,11 @@
   table {
 
                 border-collapse: collapse;
-                font-size: 17px;
+                font-size: 23px;
             }
             body
             {
-                font-size: 20px;
+                font-size: 23px;
             }
             .wrapper
             {
@@ -67,7 +67,7 @@
               <!-- info row -->
               <img class="img " src="{{ asset('assets/img/logo.png') }}" style="width: 90%;"><br>
               <center>Dakar, Keur Massar, PA U2, Près de Phramacie 24 h</center><br>
-             <center> ---------------------------------------------------------</center>
+             <center> ---------------------------------------------------</center>
 
              <table style="width: 100%;border: none;">
                 <tr>
@@ -100,7 +100,7 @@
                $total = 0 ;
             @endphp --}}
 
-            <center> ---------------------------------------------------------</center>
+            <center> ----------------------------------------------------</center>
 
             <table style="width: 100%;border: none;">
 
@@ -149,11 +149,11 @@
               <!-- /.col -->
             </div>--}}
             <!-- /.row -->
-            <center> ---------------------------------------------------------</center>
+            <center> ----------------------------------------------------</center>
             <strong>Total : {{$facture->total}} CFA</strong><br>
             <strong>Reçu : {{$facture->recu}} CFA</strong><br>
             <strong>Restant : {{$facture->restant}} CFA</strong><br>
-            <center> ---------------------------------------------------------</center>
+            <center> ----------------------------------------------------</center>
             <center>{{ $qrcode }}</center>
 
           </div>
