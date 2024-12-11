@@ -32,11 +32,15 @@
             }
             body
             {
-                font-size: 17px;
+                font-size: 20px;
+            }
+            .wrapper
+            {
+                width: 110mm; /* Largeur pour l'impression */
             }
             .invoice
             {
-                width: 90mm; /* Largeur pour l'impression */
+                width: 110mm; /* Largeur pour l'impression */
             }
 </style>
 <body>

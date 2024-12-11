@@ -54,7 +54,7 @@ class FactureController extends Controller
     }
     public function impression($facture_id){
         $facture = $this->factureRepository->getById($facture_id);
-        $qrcode = QrCode::size(50)->generate(config('app.url')."/facture/".$facture->id);
+        $qrcode = QrCode::size(100)->generate(config('app.url')."/facture/".$facture->id);
         return view('facture.impression',compact('facture','qrcode'));
     }
     public function destroy($id){
