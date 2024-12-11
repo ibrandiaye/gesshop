@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>PAPE MODOU NDIAYE BISINESS</title>
+  <title>ALIMENTATION NDIAYE ET FRERES</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -18,9 +18,9 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-{{--  <style>
+ <style>
     body{
-        background-image: url('assets/dist/img/login.png') !important;
+        background-image: url("{{ asset ('assets/img/background.jpeg') }}") !important;
         /* Background image is centered vertically and horizontally at all times */
     background-position: center center !important;
 
@@ -35,12 +35,13 @@
     on the container's size */
     background-size: cover !important ;
 
-    /* Set a background color that will*/
-    background-color: #464646 !important;
+    Set a background color that will
+    background-color: rgba(76, 175, 80, 0.3) !important;
+
 
     }
 
-</style>  --}}
+</style>
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
