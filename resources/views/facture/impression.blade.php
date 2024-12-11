@@ -21,13 +21,22 @@
 <style>
 
   th,td {
-    border: solid 1px;
-    text-align: center;
+   /* border: solid 1px;*/
+   /* text-align: center;*/
     font-weight: bold;
   }
   table {
-                width: 80mm; /* Largeur pour l'impression */
+
                 border-collapse: collapse;
+                font-size: 17px;
+            }
+            body
+            {
+                font-size: 17px;
+            }
+            .invoice
+            {
+                width: 90mm; /* Largeur pour l'impression */
             }
 </style>
 <body>
@@ -52,34 +61,59 @@
                 <!-- /.col -->
               </div>
               <!-- info row -->
-              <div class="row invoice-info">
+              <img class="img " src="{{ asset('assets/img/logo.png') }}" style="width: 90%;"><br>
+              <center>Dakar, Keur Massar, PA U2, Près de Phramacie 24 h</center><br>
+             <center> ---------------------------------------------------------</center>
 
-                <div class="col-sm-4 invoice-col">
-                  <b> <address> Date:  {{  Carbon\Carbon::parse( $facture->created_at)->format('d-m-Y H:i') }}</b><br>
-                    <br>
+             <table style="width: 100%;border: none;">
+                <tr>
+                    <td><b>N° Facture </b></td>
+                    <td class="float-right"><b>{{ $facture->id }}</b></td>
+                </tr>
+                <tr>
+                    <td><b> Client</b></td>
+                    <td class="float-right"><b><strong>@if ( $facture->client)
+                    {{ $facture->client->nomc }} @endif </strong></b></td>
+                </tr>
+                <tr>
+                    <td><b>  Date</b></td>
+                    <td class="float-right"><b> {{  Carbon\Carbon::parse( $facture->created_at)->format('d-m-Y H:i') }}</b></td>
+                </tr>
+                <tr>
+                    <td><b>  INfOLINE</b></td>
+                    <td class="float-right"><b> 77 199 88 85</b></td>
+                </tr>
 
-                  <address>
-                  <strong>@if ( $facture->client)
-                    Client : {{ $facture->client->nomc }} @endif </strong>
-                  </address>
+             </table>
 
-                  <address>
-                  <strong> INfOLINE : 77 199 88 85 </strong>
-                  </address>
-                </div>
                 <!-- /.col -->
 
-
-                <!-- /.col -->
-              </div>
               <!-- /.row -->
             <!-- /.row -->
 
             <!-- Table row -->
-            @php
+          {{--   @php
                $total = 0 ;
-            @endphp
-            <div class="row">
+            @endphp --}}
+
+            <center> ---------------------------------------------------------</center>
+
+            <table style="width: 100%;border: none;">
+
+                @foreach ($facture->sorties as $key => $sortie)
+                    <tr>
+                        <td colspan="2"><b> {{ $sortie->produit->nomp }}</b></td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2"><b> {{ $sortie->quantite }} * {{ $sortie->prixv }}  cfa</b></td>
+                        <td class="float-right"><b>{{ $sortie->quantite *  $sortie->prixv }} cfa</b></td>
+                    </tr>
+                @endforeach
+
+
+             </table>
+               {{--<div class="row">
               <div class="col-12 table-responsive">
                 <table class="">
                   <thead>
@@ -102,28 +136,21 @@
                   </tr>
                  {{--  @php
                   $total = $total + ( $sortie->quantite *  $sortie->prixv)  ;
-               @endphp --}}
+               @endphp
                   @endforeach
 
                   </tbody>
                 </table>
               </div>
               <!-- /.col -->
-            </div>
+            </div>--}}
             <!-- /.row -->
+            <center> ---------------------------------------------------------</center>
             <strong>Total : {{$facture->total}} CFA</strong><br>
             <strong>Reçu : {{$facture->recu}} CFA</strong><br>
             <strong>Restant : {{$facture->restant}} CFA</strong><br>
-            <div class="row">
-              <!-- accepted payments column -->
-              <div class="col-6">
-
-
-              </div>
-            </div>
-            <!-- /.row -->
-
-            <!-- this row will not appear when printing -->
+            <center> ---------------------------------------------------------</center>
+            <center>{{ $qrcode }}</center>
 
           </div>
           <!-- /.invoice -->

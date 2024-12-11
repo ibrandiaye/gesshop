@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use LDAP\Result;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class FactureController extends Controller
 {
@@ -53,7 +54,8 @@ class FactureController extends Controller
     }
     public function impression($facture_id){
         $facture = $this->factureRepository->getById($facture_id);
-        return view('facture.impression',compact('facture'));
+        $qrcode = QrCode::size(50)->generate(config('app.url')."/facture/".$facture->id);
+        return view('facture.impression',compact('facture','qrcode'));
     }
     public function destroy($id){
       /*   $sorties = $this->sortieRepository->getByFacture($id);
