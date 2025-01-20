@@ -100,4 +100,8 @@ class RegisterController extends Controller
         $users = $this->userRepository->getAll();
         return view('auth.list',compact('users'));
     }
+    public function delete($id){
+        $users = $this->userRepository->destroy($id);
+        return redirect('user');
+    }
 }
