@@ -88,20 +88,25 @@
                     </td>
                   </tr>
                   @endforeach
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <strong>Total : {{$facture->total}} CFA</strong><br>
+                        <strong>Reçu : {{$facture->recu}} CFA</strong><br>
+                        <strong>Restant : {{$facture->restant}} CFA</strong><br>
+                    </td>
+                  </tr>
 
                   </tbody>
                 </table>
               </div>
               <!-- /.col -->
             </div>
-            <!-- /.row -->
-            <div class="row">
-              <!-- accepted payments column -->
-              <div class="col-6">
-
-
-              </div>
-            </div>
+           
+           
+           
             <!-- /.row -->
           </div>
           <!-- /.invoice -->
