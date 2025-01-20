@@ -116,6 +116,8 @@
             <!-- this row will not appear when printing -->
             <div class="row no-print">
               <div class="col-12">
+                <a href="{{ route('facture.pdf', ['facture_id'=>$facture->id]) }}" class="btn btn-primary"><i class="fas fa-download"></i> Télécharger</a>
+
                 <a href="{{ route('facture.impression', ['facture_id'=>$facture->id]) }}" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
               </div>
             </div>
