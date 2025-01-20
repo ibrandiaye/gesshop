@@ -83,3 +83,6 @@ Route::get('/modifier/facture/{id}', 'App\Http\Controllers\FactureController@upd
 Route::post('/update/facture', 'App\Http\Controllers\FactureController@updateSortie')->name('facture.edit');
 
 Route::post('/completer', 'App\Http\Controllers\FactureController@completer')->name('completer');
+
+Route::get('/pdf/facture/{facture_id}', 'App\Http\Controllers\FactureController@facturePdf')->name('facture.pdf');
+

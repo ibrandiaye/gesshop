@@ -10,6 +10,7 @@ use App\Repositories\FactureRepository;
 use App\Repositories\ProduitRepository;
 use App\Repositories\SortieRepository;
 use App\Models\Sortie;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -56,6 +57,31 @@ class FactureController extends Controller
         $facture = $this->factureRepository->getById($facture_id);
         $qrcode = QrCode::size(100)->generate(config('app.url')."/facture/".$facture->id);
         return view('facture.impression',compact('facture','qrcode'));
+    }
+    public function facturePdf($facture_id) 
+    {
+  
+        $facture = $this->factureRepository->getById($facture_id);
+
+        if (!$facture) {
+            abort(404, 'Facture introuvable.');
+        }
+        
+        // Génération du QR Code en format PNG
+        
+         $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate(config('app.url')."/facture/".$facture->id));
+       // dd($qrcode);
+       // QrCode::format('png')->size(200)->generate(config('app.url')."/facture/".$facture->id);
+        
+        // Passer les données à la vue
+        $data = [
+            'facture' => $facture,
+            'qrcode' => $qrcode,
+        ];
+        
+        $pdf = Pdf::loadView('facture.telecharger', $data);
+        return $pdf->stream("Facture_{$facture->id}.pdf");
+        
     }
     public function destroy($id){
       /*   $sorties = $this->sortieRepository->getByFacture($id);

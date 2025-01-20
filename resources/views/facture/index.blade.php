@@ -66,6 +66,9 @@
                                     {!! Form::open(['method' => 'DELETE', 'route'=>['factur.destroy', $facture->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { return false; }"]) !!}
                                     <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
                                     {!! Form::close() !!}
+                                    <a href="{{ route('facture.impression', ['facture_id'=>$facture->id]) }}" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> </a>
+                                    <a href="{{ route('facture.pdf', ['facture_id'=>$facture->id]) }}" class="btn btn-primary"><i class="fas fa-download"></i> </a>
+
                                 </td>
 
 
