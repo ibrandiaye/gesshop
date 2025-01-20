@@ -95,7 +95,6 @@
               <!-- /.col -->
             </div>
             <!-- /.row -->
- <center>{!! $qrcode !!}</center>
             <div class="row">
               <!-- accepted payments column -->
               <div class="col-6">

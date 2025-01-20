@@ -80,7 +80,8 @@ class FactureController extends Controller
         ];
         
         $pdf = Pdf::loadView('facture.telecharger', $data);
-        return $pdf->stream("Facture_{$facture->id}.pdf");
+        $client = $facture->client->nomc;
+        return $pdf->download("Facture_{$client}_{$facture->id}.pdf");
         
     }
     public function destroy($id){
